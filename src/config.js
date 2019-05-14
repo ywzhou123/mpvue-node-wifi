@@ -1,8 +1,17 @@
-const host = 'http://localhost:5757'
+const host = 'http://192.168.31.207:5757'
 const config = {
   host,
   loginUrl: `${host}/weapp/login`,
-  wxCode: `${host}/weapp/wxacode`
+  user: `${host}/weapp/user`,
+  wxCode: `${host}/weapp/wxCode`,
+  wifiList: `${host}/weapp/wifiList`,
+  wifiDetail: `${host}/weapp/wifiDetail`,
+  wifiDelete: `${host}/weapp/wifiDelete`,
+  wifiCreate: `${host}/weapp/wifiCreate`,
+  wifiUpdate: `${host}/weapp/wifiUpdate`,
+  connectList: `${host}/weapp/connectList`,
+  connectCount: `${host}/weapp/connectCount`,
+  connectWifi: `${host}/weapp/connectWifi`
 }
 
 export default config

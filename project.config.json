@@ -13,6 +13,8 @@
 	"compileType": "miniprogram",
 	"appid": "wxd8a26b2c1042fa2a",
 	"projectname": "freeflow",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

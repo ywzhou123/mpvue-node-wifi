@@ -1,24 +1,18 @@
 <script>
-// import qcloud from 'wafer2-client-sdk'
-// import config from './config'
-// export default {
-//   created () {
-//     const user = wx.getStorageSync('userInfo')
-//     console.log('user: ', user)
-//     if (!user) {
-//       qcloud.setLoginUrl(config.loginUrl)
-//       qcloud.login({
-//         success (userInfo) {
-//           console.log('登录成功：', userInfo)
-//           wx.setStorageSync('userInfo', userInfo)
-//         },
-//         fail (err) {
-//           console.log('登录失败', err)
-//         }
-//       })
-//     }
-//   }
-// }
+import {
+  mapActions
+} from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions('index', ['getAuthSetting']),
+    ...mapActions(['getSystemInfo'])
+  },
+  created () {
+    this.getAuthSetting()
+    this.getSystemInfo()
+  }
+}
 </script>
 
 <style>
