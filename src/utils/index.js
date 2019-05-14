@@ -124,6 +124,7 @@ export function showToast (title, icon = 'success') {
 
 let Base64 = require('js-base64').Base64
 const salt = 'sjnv$u049qrh[c9hnq98--8Y(*Rg-gf4'
+// 加密
 export function b64encode (value) {
   try {
     return Base64.encode(salt + value.toString())
@@ -131,6 +132,7 @@ export function b64encode (value) {
     return value
   }
 }
+// 解密
 export function b64decode (value) {
   try {
     let dstr = Base64.decode(value.toString())
