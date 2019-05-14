@@ -1,6 +1,13 @@
 {
   "pages": [
-    "pages/index/main"
+    "pages/index/main",
+    "pages/wifilist/main",
+    "pages/detail/main",
+    "pages/create/main",
+    "pages/connect/main",
+    "pages/connecting/main",
+    "pages/connectsuccess/main",
+    "pages/connectfail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -8,5 +15,10 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#eee"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "授权小程序获取您的Wifi列表信息"
+    }
   }
 }

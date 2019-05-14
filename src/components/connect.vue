@@ -1,8 +1,11 @@
 <template>
-  <div class="container"  @click="clickConnectHandle(connect.wifi_id, $event)">
+  <div class="container">
     <div class="connect">
       <div class="ssid">
-        {{connect.wifi && connect.wifi.ssid}}
+        {{connect.ssid}}
+      </div>
+      <div class="title">
+        {{connect.title}}
       </div>
       <div class="time">
         {{time}}使用过
@@ -22,9 +25,7 @@ export default {
       default: {
         wifi_id: '',
         time: '',
-        wifi: {
-          ssid: ''
-        }
+        ssid: ''
       }
     }
   },
@@ -34,37 +35,36 @@ export default {
       const newtime = new Date()
       return beforeTime(oldtime, newtime)
     }
-  },
-  methods: {
-    clickConnectHandle () {
-      var wifiId = this.connect.wifi_id
-      if (wifiId) {
-        wx.navigateTo({
-          url: `/pages/index/main?wifi_id=${wifiId}`
-        })
-      }
-    }
   }
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 .container{
   padding: 5px 10px;
   background-color: white;
-}
-.connect{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.ssid{
-  font-size: 14px;
-}
-.time{
-  font-size: 12px;
-  color: rgba(92, 89, 89, 0.603);
-  text-align: right;
+  .connect{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    .ssid{
+      font-size: 40rpx;
+    }
+    .title{
+      font-size: 32rpx;
+      color: #aaaaaa;
+      padding-left: 30rpx;
+      flex: 1;
+    }
+    .time{
+      font-size: 12px;
+      color: rgba(92, 89, 89, 0.603);
+      text-align: right;
+    }
+    &:hover{
+      background-color: #eeeeee;
+    }
+  }
 }
 </style>
