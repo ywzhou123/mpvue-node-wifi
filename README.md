@@ -7,6 +7,17 @@
 
   server目录是node端代码
 
+### 说明
+
+  连接Wifi:
+    仅 Android 与 iOS 11 以上版本支持
+
+  获取Wifi列表:
+    iOS 将跳转到系统的 Wi-Fi 界面，Android 不会跳转。
+    iOS 11.0 及 iOS 11.1 两个版本因系统问题，该方法失效。
+    目前存在跳转到系统权限设置页面的bug，需要用户点击左上角“设置”返回，然后点击“无线局域网”，最后点击左上解“微信”返回到页面。
+    [BUG](https://developers.weixin.qq.com/community/develop/doc/000c02f4990080871047570655ac00)
+
 # 操作步骤
 
 ## 初始化

@@ -49,10 +49,6 @@ export default {
       ctx.setFillStyle('white')
       ctx.fillRect(0, 0, ctx.width, 350 * ratio)
       // 小程序码图
-      // eslint-disable-next-line no-undef
-      // var wxCodeImg = new Image()
-      // wxCodeImg.src = that.wxCode
-      console.log(that.wxCode)
       ctx.drawImage(
         that.wxCode,
         125 * ratio / 2,

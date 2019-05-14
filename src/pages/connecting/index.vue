@@ -22,7 +22,7 @@
       <div class="step_item step4">
         <span class="txt">联网检查</span>
         <icon class="success" type="success" size="20" v-if="step4"></icon>
-        <img src="/static/image/loading.png" alt class="status" v-else>
+        <img src="/static/image/loading.png" alt class="status" v-if="!step4">
       </div>
     </div>
   </div>
@@ -46,8 +46,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wifi']),
-    ...Vuex.mapState('index', ['userInfo'])
+    ...mapState(['wifi'])
   },
   methods: {
     readyConnect () {
@@ -95,8 +94,7 @@ export default {
       await qcloud.request({
         url: config.connectWifi,
         data: {
-          wifiId: that.wifi.id,
-          openId: that.userInfo.openId
+          wifiId: that.wifi.id
         }
       })
     }

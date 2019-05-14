@@ -8,7 +8,7 @@
     </div>
     <div class="welcome">
       <h1 class="head">欢迎使用！</h1>
-      <p class="info">在活动现场、会议室、公司前台、客厅等放置您的专属WiFi码，访客扫一扫即可免密连WiFi。还能查看微官网、产品介绍、公众号、一键签到！</p>
+      <p class="info">在活动现场、会议室、公司前台、客厅、门店等放置您的专属WiFi码，访客扫一扫即可免密连WiFi。</p>
     </div>
     <div class="btn">
       <button class="weui-btn" type="primary" @click="createWifiHandle">我要创建WiFi码</button>
@@ -157,6 +157,7 @@ export default {
     background-color: white;
     padding: 20px;
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     .icon{

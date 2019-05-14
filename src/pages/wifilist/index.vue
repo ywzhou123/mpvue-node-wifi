@@ -42,8 +42,6 @@ export default {
   computed: {
     ...mapState(['system', 'platform']),
     ...mapState('wifiList', [
-      'startError',
-      'wifiListErrorInfo',
       'ssid',
       'bssid',
       'wifiList'
@@ -52,35 +50,36 @@ export default {
       return this.wifiList.sort((a, b) => a.signalStrength < b.signalStrength)
     }
   },
+  async onPullDownRefresh () {
+    await this.getCurrentWifi()
+    await this.getSetting()
+    wx.stopPullDownRefresh()
+  },
   methods: {
     ...mapActions('wifiList', ['setState']),
     // 获取系统系统
     getSystemInfo () {
-      const startError = `当前系统版本(${this.platform}:${
-        this.system
-      })暂不支持`
-
-      if (this.platform === 'android' && this.system < 6) {
-        this.setState({ startError })
+      if ((this.platform === 'android' && this.system < 6) || (this.platform === 'ios' && this.system < 11.2)) {
+        const errMsg = `当前系统版本(${this.platform}:${
+          this.system
+        })暂不支持`
+        wx.showToast({
+          icon: 'none',
+          title: errMsg
+        })
         return
       }
-      if (this.platform === 'ios' && this.system < 11) {
-        this.setState({ startError })
-        return
-      }
-
       // 初始化 Wi-Fi 模块
       this.startWifi()
     },
     // 初始化 Wi-Fi 模块。
     startWifi () {
-      var that = this
       wx.startWifi({
-        success () {
-          that.setState({ startError: '' })
-        },
-        fail (res) {
-          that.setState({ startError: 'WiFi模块初始化失败' })
+        fail () {
+          wx.showToast({
+            icon: 'none',
+            title: 'WiFi模块初始化失败'
+          })
         }
       })
     },
@@ -91,36 +90,34 @@ export default {
         success (res) {
           that.setState({
             ssid: res.wifi.SSID,
-            bssid: res.wifi.BSSID,
-            startError: ''
+            bssid: res.wifi.BSSID
           })
         },
         fail (res) {
-          let startError = '获取WiFi失败'
+          let errMsg = '获取WiFi失败'
           const code = res.errCode
           if (code === 12005) {
-            startError = '请打开无线网络'
+            errMsg = '请打开无线网络'
           } else if (code === 12002) {
-            startError = '密码错误'
+            errMsg = '密码错误'
           } else if (code === 12003 || code === 12012) {
-            startError = '连接超时'
+            errMsg = '连接超时'
           } else if (code === 12001) {
-            startError = '系统不支持'
+            errMsg = '系统不支持'
           } else if (code === 12006) {
-            startError = '请打开GPS定位'
+            errMsg = '请打开GPS定位'
           } else if (code === 12010) {
             if (res.errMsg.endsWith('currentWifi is null')) {
-              startError = '未连接WiFi'
+              errMsg = '未连接WiFi'
             }
           }
           wx.showToast({
             icon: 'none',
-            title: startError
+            title: errMsg
           })
           that.setState({
             ssid: '',
-            bssid: '',
-            startError
+            bssid: ''
           })
         }
       })
@@ -132,10 +129,8 @@ export default {
       wx.onGetWifiList(function (res) {
         // 获取列表
         if (res.wifiList.length) {
-          // that.wifiList=res.wifiList;
           that.setState({
-            wifiList: res.wifiList,
-            wifiListErrorInfo: ''
+            wifiList: res.wifiList
           })
         } else {
           that.setState({
@@ -143,56 +138,28 @@ export default {
             wifiListErrorInfo: '未搜索到附近的WiFi'
           })
         }
-        // 设置 wifiList 中 AP 的相关信息。在 onGetWifiList 回调后调用，iOS特有接口。
-        // if (res.wifiList.length && that.platform === 'ios') {
-        //   wx.setWifiList({
-        //     wifiList: [{
-        //       SSID: res.wifiList[0].SSID,
-        //       BSSID: res.wifiList[0].BSSID,
-        //       password: '123456'
-        //     }]
-        //   })
-        // } else {
-        //   wx.setWifiList({
-        //     wifiList: []
-        //   })
-        // }
       })
+    },
+    handleSystemPlatform () {
+      var that = this
+      if (this.platform === 'ios') {
+        wx.showModal({
+          title: 'IOS获取Wifi列表操作提示',
+          content:
+            '将会打开系统权限设置页面，点击左上角“设置”回到设置首页，滑动到顶部然后点击“无线局域网”，最后点击左上角小字“微信”返回到小程序页面。',
+          success (res) {
+            if (res.confirm) {
+              that.getWifiList()
+            }
+          }
+        })
+      } else {
+        that.getWifiList()
+      }
     },
     // 请求获取wifi列表
     getWifiList () {
-      var that = this
-      try {
-        // 请求获取 Wi-Fi 列表
-        wx.getWifiList({
-          success (res) {
-            that.setState({
-              wifiListErrorInfo: ''
-            })
-          },
-          fail (res) {
-            that.setState({
-              wifiList: [],
-              wifiListErrorInfo: '未搜索到附近的WiFi'
-            })
-          }
-        })
-      } catch (error) {
-        that.IosList()
-      }
-    },
-    IosList () {
-      const that = this
-      const wifiListErrorInfo = `当前系统版本(${that.platform}:${
-        that.system
-      })暂不支持`
-      this.setState({
-        wifiListErrorInfo
-      })
-      wx.showToast({
-        icon: 'none',
-        title: wifiListErrorInfo
-      })
+      wx.getWifiList()
     },
     clickHandleCreate (e) {
       if (!this.ssid) return
@@ -205,6 +172,23 @@ export default {
       wx.navigateTo({
         url: `/pages/create/main?ssid=${ssid}&bssid=${bssid}`
       })
+    },
+    getSetting () {
+      const that = this
+      wx.getSetting({
+        success (res) {
+          if (res.authSetting['scope.userLocation']) {
+            that.handleSystemPlatform() // 请求wifi列表
+          } else {
+            wx.authorize({
+              scope: 'scope.userLocation',
+              success () {
+                that.handleSystemPlatform() // 请求wifi列表
+              }
+            })
+          }
+        }
+      })
     }
   },
   beforeMount () {
@@ -213,21 +197,7 @@ export default {
   },
   mounted () {
     this.getCurrentWifi() // 获取当前已连接的wifi信息
-    const that = this
-    wx.getSetting({
-      success (res) {
-        if (res.authSetting['scope.userLocation']) {
-          that.getWifiList() // 请求wifi列表
-        } else {
-          wx.authorize({
-            scope: 'scope.userLocation',
-            success () {
-              that.getWifiList() // 请求wifi列表
-            }
-          })
-        }
-      }
-    })
+    this.getSetting()
   }
 }
 </script>
