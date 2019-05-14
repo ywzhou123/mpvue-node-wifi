@@ -32,4 +32,23 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 
+// 获取小程序码
+router.get('/wxCode', controllers.wxCode)
+// 获取wifi列表
+router.get('/wifiList', validationMiddleware, controllers.wifiList)
+// 获取wifi详情
+router.get('/wifiDetail', controllers.wifiDetail)
+// 删除wifi
+router.put('/wifiDelete', validationMiddleware, controllers.wifiDelete)
+// 创建wifi
+router.post('/wifiCreate', validationMiddleware, controllers.wifiCreate)
+// 更新wifi
+router.put('/wifiUpdate', validationMiddleware, controllers.wifiUpdate)
+// 获取连接列表
+router.get('/connectList', validationMiddleware, controllers.connectList)
+// 获取单个wifi连接次数
+router.get('/connectCount', validationMiddleware, controllers.connectCount)
+// 更新wifi连接记录
+router.put('/connectWifi', validationMiddleware, controllers.connectWifi)
+
 module.exports = router

@@ -1,6 +1,6 @@
 const CONF = {
     // --- 本地开发环境 start ---
-    serverHost: 'localhost',
+    serverHost: '192.168.31.207',
     tunnelServerUrl: '',
     tunnelSignatureKey: '27fb7d1c161b7ca52d73cce0f1d833f9f5b5ec89',
     // 腾讯云相关配置可以查看云 API 密钥控制台：https://console.cloud.tencent.com/capi
@@ -29,7 +29,7 @@ const CONF = {
      * 开发环境下，MySQL 的初始密码为您的微信小程序 appid
      */
     mysql: {
-        host: 'localhost',
+        host: '192.168.31.207',
         port: 3306,
         user: 'root',
         db: 'cAuth',
