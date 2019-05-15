@@ -103,16 +103,17 @@ export default {
       const company = '畅享无限WiFi码'
       const companyX = (ctx.width - ctx.measureText(company).width * ratio) / 2
       ctx.fillText(company, companyX, 345 * ratio)
-      ctx.drawImage(
-        '/static/image/logo.png',
-        companyX - 12 * ratio,
-        340 * ratio,
-        10 * ratio,
-        10 * ratio
-      )
+      // ctx.drawImage(
+      //   '/static/image/logo.png',
+      //   companyX - 12 * ratio,
+      //   340 * ratio,
+      //   10 * ratio,
+      //   10 * ratio
+      // )
       ctx.setFontSize(3) // 设置字体大小，默认10
       const by = 'Powered by ywzhou'
-      ctx.fillText(by, companyX, 348 * ratio)
+      const byX = (ctx.width - ctx.measureText(by).width * ratio) / 2
+      ctx.fillText(by, byX, 348 * ratio)
 
       ctx.draw() // 绘制图片
       that.savePic()

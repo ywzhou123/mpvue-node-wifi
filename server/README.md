@@ -104,7 +104,7 @@ koa-weapp-demo
     pass: '',
     char: 'utf8'
   },
-  
+
   // COS 配置，用于上传模块使用
   cos: {
     /**

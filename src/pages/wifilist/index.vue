@@ -211,11 +211,9 @@ export default {
       display: flex;
       flex-direction: column;
       .logo {
-        width: 40px;
-        height: 40px;
+        width: 90px;
+        height: 90px;
         align-self: center;
-        margin-top: 20px;
-        margin-bottom: 10px;
       }
       .company {
         font-size: 12px;

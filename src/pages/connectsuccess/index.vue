@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :style="{minHeight: minHeight}">
+  <div class="container">
     <img src="/static/image/success.png" alt="" class="success">
     <span class="success_txt">已连接成功</span>
     <span class="ssid">{{wifi.ssid}}</span>
@@ -24,6 +24,7 @@ export default {
 <style lang='scss' scoped>
 .container{
   background-color:#fff;
+  height: 100vh;
   .success{
     background-color:rgb(7, 184, 66);
     border-radius:50%;
