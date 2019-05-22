@@ -1,19 +1,37 @@
 <template>
-  <div class="container">
-    <div class="image">
-      <img src="../../../static/image/wifi-example.png" alt class="img">
-    </div>
-    <div class="errMsg" v-if="codeErrMsg">
-      <span>生成小程序码错误：{{codeErrMsg}}</span>
-    </div>
-    <form class="form">
-      <input type="text" class="ssid" :value="wifiData.ssid" disabled>
-      <input type="password" class="pass" placeholder="输入WiFi密码（必填）" v-model="wifiData.pass" auto-focus>
-      <input type="text" class="title" placeholder="输入欢迎语（例：XXX企业欢迎您）" v-model="wifiData.title">
-      <input type="text" class="remark" placeholder="输入备注（例：会议室专用）" v-model="wifiData.remark">
-      <button class="weui-btn" type="primary" @click="clickHandle">{{wifiData.id?'更新':'生成'}}WiFi码</button>
-    </form>
-  </div>
+  <section class="container">
+    <header>
+      <h1>填写WIFI码信息</h1>
+      <span>填写时请确认WIFI密码是否填写正确</span>
+      <div class="example" @click="onNavigate">
+        <h2>查看示例</h2>
+        <img src="/static/image/go.png" alt='' mode='aspectFit'>
+      </div>
+    </header>
+    <section class="form-wrap">
+      <form class="form">
+        <div class="form-item">
+          <img src="/static/image/logo.png" alt='' mode='aspectFit'>
+          <input type="text" class="ssid" :value="wifiData.ssid" disabled>
+        </div>
+        <div class="form-item">
+          <img src="/static/image/password.png" alt='' mode='aspectFit'>
+          <input type="password" class="pass" placeholder="请输入WiFi密码" v-model="wifiData.pass">
+        </div>
+        <div class="form-item">
+          <img src="/static/image/welcome.png" alt='' mode='aspectFit'>
+          <input type="text" class="title" placeholder="说一句欢迎语吧~" v-model="wifiData.title">
+        </div>
+        <div class="form-item">
+          <img src="/static/image/remark.png" alt='' mode='aspectFit'>
+          <input type="text" class="remark" placeholder="请输入备注" v-model="wifiData.remark">
+        </div>
+      </form>
+    </section>
+    <section class="btn-wrap">
+      <button class="weui-btn btn-main" type="primary" @click="clickHandle">{{wifiData.id?'更新':'生成'}}WiFi码</button>
+    </section>
+  </section>
 </template>
 
 <script>
@@ -78,6 +96,11 @@ export default {
       } else {
         this.createWifi(this.wifiData)
       }
+    },
+    onNavigate () {
+      wx.navigateTo({
+        url: '/pages/example/main'
+      })
     }
   },
   mounted () {
@@ -98,32 +121,61 @@ export default {
 
 <style lang='scss' scoped>
 .container {
-  .image {
-    background-color: #fff;
-    margin-top: 40px;
-  }
-  .img {
-    height: 400px;
-    width: 280px;
-  }
-  .form {
-    background-color: #fff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    input {
-      margin: 10px 20px;
-      border-bottom: 1px solid #eee;
-      font-size: 16px;
+  justify-content: flex-start;
+  header{
+    padding: 0 36rpx;
+    h1{
+      font-size: 48rpx;
+      line-height: 67rpx;
+      padding-top: 36rpx;
     }
-    .weui-btn {
-      margin: 20px;
+    span{
+      font-size: 28rpx;
+      line-height: 40rpx;
+      padding-top: 10rpx;
+    }
+    .example{
+      padding-top: 60rpx;
+      display: flex;
+      align-items: center;
+      h2{
+        font-size: 32rpx;
+        color: #02C9A0;
+        line-height: 45rpx;
+        padding-right: 22rpx;
+      }
+      img{
+        width: 19rpx;
+        height: 30rpx;
+      }
     }
   }
-  .errMsg {
-    color: red;
-    font-size: 12px;
-    text-align: center;
+  .form-wrap{
+    padding-top: 18rpx;
+    padding-left: 36rpx;
+    .form{
+      .form-item{
+        display: flex;
+        align-items: center;
+        padding-top: 60rpx;
+        img{
+          width: 60rpx;
+          height: 60rpx;
+          padding-right: 36rpx;
+        }
+        input{
+          width:100%;
+          padding: 20rpx 0;
+          font-size: 28rpx;
+          line-height: 40rpx;
+          color: #777777;
+          border-bottom:1px solid #CECCE2;
+        }
+      }
+    }
+  }
+  .btn-wrap{
+    padding: 120rpx 36rpx 0;
   }
 }
 </style>

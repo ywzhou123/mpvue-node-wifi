@@ -15,7 +15,7 @@
       </div>
     </section>
     <section class="create-btn-wrap">
-      <button class="weui-btn" type="primary" @click="createWifiHandle">创建WiFi码</button>
+      <button class="weui-btn btn-main" type="primary" @click="createWifiHandle">创建WiFi码</button>
     </section>
     <section class="wifi-list-wrap" v-if="getWifiListSorted.length">
       <div class="list-title">
@@ -152,18 +152,6 @@ export default {
   }
   .create-btn-wrap{
     padding: 40rpx 36rpx 0;
-    .weui-btn{
-      width: 100%;
-      height: 88rpx;
-      border-radius: 48rpx;
-      background:linear-gradient(93deg,rgba(5,221,124,1) 0%,rgba(2,201,158,1) 50%,rgba(0,183,197,1) 100%);
-      box-shadow:0 20rpx 40rpx rgba(2,200,160,0.2);
-
-      font-size:36rpx;
-      font-weight:bold;
-      line-height:88rpx;
-      color: #ffffff;
-    }
   }
   .wifi-list-wrap {
     padding-top: 80rpx;

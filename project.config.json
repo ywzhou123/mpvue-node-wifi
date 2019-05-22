@@ -24,13 +24,31 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 1,
+			"list": [
+				{
+					"id": -1,
+					"name": "example",
+					"pathName": "pages/example/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "connect",
+					"pathName": "pages/connect/main",
+					"scene": null
+				}
+			]
 		}
 	}
 }

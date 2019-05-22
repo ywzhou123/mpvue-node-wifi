@@ -68,4 +68,20 @@ button::after{
     // color: #181818;
   }
 }
+
+.weui-btn.btn-main{
+  width: 100%;
+  height:88rpx;
+  margin-top: 60rpx;
+  line-height: 88rpx;
+  color: #ffffff;
+  font-size: 36rpx;
+  background:linear-gradient(93deg,rgba(5,221,124,1) 0%,rgba(2,201,158,1) 50%,rgba(0,183,197,1) 100%);
+  box-shadow:0px 20rpx 40rpx rgba(2,200,160,0.2);
+  border-radius:48rpx;
+  &.disabled{
+    box-shadow: none;
+    background: #f5f5f5;
+  }
+}
 </style>

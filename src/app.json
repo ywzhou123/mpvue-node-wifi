@@ -7,7 +7,8 @@
     "pages/connect/main",
     "pages/connecting/main",
     "pages/connectsuccess/main",
-    "pages/connectfail/main"
+    "pages/connectfail/main",
+    "pages/example/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
