@@ -1,9 +1,9 @@
 <template>
-  <section class="weui-footer">
+  <footer class="weui-footer">
     <div class="weui-footer__text">
       <span class="text">Powered by 畅享无限</span>
     </div>
-  </section>
+  </footer>
 </template>
 
 <script>

@@ -223,9 +223,6 @@ export default {
       border-radius: 0;
       box-sizing: unset;
     }
-    button::after {
-      border: none;
-    }
 
     .update {
       position: absolute;

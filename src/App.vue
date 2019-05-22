@@ -15,7 +15,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang='scss'>
 page {
   background-color: #eeeeee;
 }
@@ -30,6 +30,8 @@ page {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: #ffffff;
+  color: #181818;
 }
 /* this rule will be remove */
 * {
@@ -38,10 +40,32 @@ page {
   -webkit-transition: width 2s;
   -o-transition: width 2s;
 }
-section{
+section, header, footer{
   width: 100%;
+  box-sizing: border-box
 }
 img{
   display: block;
+}
+button::after{
+  border: 0;
+}
+.list-title{
+  display: flex;
+  align-items: center;
+  .tag {
+    width: 10rpx;
+    height: 50rpx;
+    margin-left: 44rpx;
+    border-radius:19rpx;
+    background-color: #02C9A0;
+    box-shadow:-5rpx 5rpx 12rpx rgba(2,201,160,0.3);
+  }
+  h2{
+    padding-left: 36rpx;
+    font-size: 36rpx;
+    line-height: 50rpx;
+    // color: #181818;
+  }
 }
 </style>

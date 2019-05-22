@@ -1,23 +1,12 @@
 <template>
-  <div class="container">
-    <div class="weui-flex">
-        <div class="weui-flex__item item-select">
-          <icon type="success_no_circle" size="20"  v-show="isCurrentWifi"/>
-        </div>
-        <div class="weui-flex__item  weui-flex flex-item-ssid">
-          <div class="weui-flex__item item-ssid">
-          <div class="ssid">{{wifi.SSID}}</div>
-          </div>
-          <div class="weui-flex__item item-secure">
-            <img src="/static/image/lock.png" alt="" class="lock" v-if="wifi.secure">
-          </div>
-          <div class="weui-flex__item item-signalStrength">
-            <img :src="signalStrengthLevel" alt="" class="signalStrength">
-          </div>
-        </div>
-
-      </div>
-  </div>
+  <section class="wifi-item-wrap">
+    <div class="choose">
+      <img src="/static/image/choose.png" alt="" v-show="isCurrentWifi"  mode='aspectFit'>
+    </div>
+    <div class="ssid">{{wifi.SSID}}</div>
+    <img src="/static/image/lock.png" alt="" class="lock" v-if="wifi.secure"  mode='aspectFit'>
+    <img :src="signalStrengthLevel" alt="" class="signalStrength"  mode='aspectFit'>
+  </section>
 </template>
 
 <script>
@@ -48,47 +37,38 @@ export default {
     },
     signalStrengthLevel () {
       var signalStrength = this.wifi.signalStrength
-      if (signalStrength > 75) return '/static/image/wifi-4.png'
-      if (signalStrength > 50) return '/static/image/wifi-3.png'
-      if (signalStrength > 25) return '/static/image/wifi-2.png'
+      if (signalStrength > 66) return '/static/image/wifi-3.png'
+      if (signalStrength > 33) return '/static/image/wifi-2.png'
       return '/static/image/wifi-1.png'
     }
   }
 }
 </script>
 
-<style scoped>
-.container{
-  background-color: white;
-  height: 40px;
-}
-.weui-flex {
-  width: 100%;
-  height: 100%;
+<style lang='scss' scoped>
+.wifi-item-wrap{
+  display: flex;
   justify-content: space-between;
-}
-.weui-flex__item{
-  flex: 0;
-  align-self: center;
-}
-.item-select{
-  padding: 0 10px;
-  flex-basis: 20px;
-}
-.flex-item-ssid{
-  flex: 1;
-  border-bottom: 1px solid #ccc;
-}
-.item-ssid{
-  flex: 1;
-}
-.item-signalStrength{
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.lock, .signalStrength{
-  width: 40rpx;
-  height: 40rpx;
+  align-items: center;
+  padding: 0 36rpx;
+  .choose, .choose img{
+    width: 45rpx;
+    height: 45rpx;
+  }
+  .ssid{
+    padding-left: 29rpx;
+    flex: 1;
+    font-size: 32rpx;
+    line-height: 45rpx;
+  }
+  .lock{
+    width: 27rpx;
+    height: 32rpx;
+    padding-right: 20rpx;
+  }
+  .signalStrength{
+    width: 42rpx;
+    height: 32rpx;
+  }
 }
 </style>

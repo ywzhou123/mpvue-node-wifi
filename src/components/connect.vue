@@ -39,7 +39,6 @@ export default {
 <style lang='scss' scoped>
 .connect-wrap{
   padding: 40rpx 36rpx 0;
-  box-sizing: border-box;
   .connect{
     height: 160rpx;
     display: flex;
@@ -54,7 +53,7 @@ export default {
     }
     .content {
       flex: 1;
-      color: #181818;
+      // color: #181818;
       display: flex;
       flex-direction: column;
       justify-content: center;

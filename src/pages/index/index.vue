@@ -18,7 +18,7 @@
       <button class="weui-btn" type="primary" @click="createWifiHandle">创建WiFi码</button>
     </section>
     <section class="wifi-list-wrap" v-if="getWifiListSorted.length">
-      <div class="title">
+      <div class="list-title">
         <div class="tag"></div>
         <h2>我的分享码</h2>
       </div>
@@ -29,7 +29,7 @@
       </div>
     </section>
     <section class="connect-list-wrap" v-if="getConnectListSorted.length">
-      <div class="title">
+      <div class="list-title">
         <div class="tag"></div>
         <h2>最近连接</h2>
       </div>
@@ -121,7 +121,7 @@ export default {
       top: 36rpx;
       left: 36rpx;
       h1{
-        color:#181818;
+        // color:#181818;
         font-size: 48rpx;
         line-height: 67rpx;
         padding-bottom: 10rpx;
@@ -147,15 +147,11 @@ export default {
         line-height: 108rpx;
         border-radius:50%;
         background-color:#eee;
-        &::after{
-          border: 0;
-        }
       }
     }
   }
   .create-btn-wrap{
     padding: 40rpx 36rpx 0;
-    box-sizing:border-box;
     .weui-btn{
       width: 100%;
       height: 88rpx;
@@ -167,27 +163,6 @@ export default {
       font-weight:bold;
       line-height:88rpx;
       color: #ffffff;
-    }
-  }
-  .wifi-list-wrap,
-  .connect-list-wrap{
-    .title{
-      display: flex;
-      align-items: center;
-      .tag {
-        width: 10rpx;
-        height: 50rpx;
-        margin-left: 44rpx;
-        border-radius:19rpx;
-        background-color: #02C9A0;
-        box-shadow:-5rpx 5rpx 12rpx rgba(2,201,160,0.3);
-      }
-      h2{
-        padding-left: 36rpx;
-        font-size: 36rpx;
-        line-height: 50rpx;
-        color: #181818;
-      }
     }
   }
   .wifi-list-wrap {

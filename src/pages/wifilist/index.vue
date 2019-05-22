@@ -1,18 +1,16 @@
 <template>
-  <div class="container">
-    <div class="wifilist">
-      <div class="current">
-        <img src="/static/image/logo.png" alt class="logo">
-        <span class="company">畅享无限</span>
-        <div class="ssid">
-          <span>{{ssid||'未连接Wifi'}}</span>
-        </div>
-        <div class="create">
-          <button class="weui-btn" type="primary" :disabled="!ssid" @click="clickHandleCreate">快速创建WiFi码</button>
-        </div>
-      </div>
-      <div class="title" v-if="wifiList.length">
-        <span v-if="wifiList.length">或选择以下可用的rWiFi，点击去创建</span>
+  <section class="container">
+    <header>
+      <h1>请选择可用的WIFI</h1>
+      <span>可创建当前连接WIFI或下方WIFI列表的WIFI码</span>
+      <img class="logo" src="/static/image/logo.png" alt='' mode='aspectFit'>
+      <div class="ssid">{{ssid||'未连接Wifi'}}</div>
+      <button class="weui-btn" type="primary" :disabled="!ssid" @click="clickHandleCreate">立即创建</button>
+    </header>
+    <section class="wifi-list-wrap">
+      <div class="list-title">
+        <div class="tag"></div>
+        <h2>WIFI列表</h2>
       </div>
       <div class="wifi-list">
         <div
@@ -20,14 +18,17 @@
           :key="index"
           @click="clickWifiHandle(item.SSID, item.BSSID, $event)"
         >
-          <wifi :wifi="item" :ssid="ssid" :bssid="bssid"></wifi>
+          <wifi :wifi="item" :ssid="ssid" :bssid="bssid" />
+          <div class="line" v-if="index < wifiListSortd.length - 1"></div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+    <FooterComp/>
+  </section>
 </template>
 
 <script>
+import FooterComp from '@/components/FooterComp'
 import wifi from './wifi.vue'
 
 import {
@@ -37,7 +38,8 @@ import {
 
 export default {
   components: {
-    wifi
+    wifi,
+    FooterComp
   },
   computed: {
     ...mapState(['system', 'platform']),
@@ -204,40 +206,53 @@ export default {
 
 <style lang='scss' scoped>
 .container{
+  header{
+    padding: 0 36rpx;
+    h1{
+      padding-top: 36rpx;
+      font-size: 48rpx;
+      line-height: 67rpx;
+    }
+    span{
+      padding-top: 10rpx;
+      font-size: 28rpx;
+      line-height: 40rpx;
+    }
+    .logo{
+      margin: 0 auto;
+      width: 294rpx;
+      height: 294rpx;
+    }
+    .ssid{
+      text-align: center;
+      font-size: 36rpx;
+      line-height: 50rpx;
+      padding-top: 20rpx;
 
-  .wifilist {
-    width: 100%;
-    .current {
-      display: flex;
-      flex-direction: column;
-      .logo {
-        width: 90px;
-        height: 90px;
-        align-self: center;
-      }
-      .company {
-        font-size: 12px;
-        color: #ccc;
-        align-self: center;
-      }
-      .ssid {
-        text-align: center;
-        padding-top: 40px;
-      }
-      .create {
-        padding: 40px;
-        text-align: center;
-      }
     }
-    .title {
-      height: 40px;
-      line-height: 40px;
-      padding-left: 20px;
-      font-size: 14px;
+    .weui-btn{
+      width: 100%;
+      height:88rpx;
+      margin-top: 60rpx;
+      line-height: 88rpx;
+      color: #ffffff;
+      font-size: 36rpx;
+      background:linear-gradient(93deg,rgba(5,221,124,1) 0%,rgba(2,201,158,1) 50%,rgba(0,183,197,1) 100%);
+      box-shadow:0px 20rpx 40rpx rgba(2,200,160,0.2);
+      border-radius:48rpx
     }
-    .current,
-    .wifi-list {
-      background-color: #fff;
+  }
+  .wifi-list-wrap {
+    padding-top: 120rpx;
+    padding-bottom: 160rpx;
+    flex: 1;
+    .wifi-list{
+      padding-top: 60rpx;
+      .line{
+        margin: 40rpx 0 40rpx 110rpx;
+        height: 1rpx;
+        background-color: #CECCE2;
+      }
     }
   }
 }
