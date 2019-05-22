@@ -1,41 +1,48 @@
 <template>
-  <div class="container">
-    <div class="userinfo">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <button class="userinfo-button" v-if="!userInfo.avatarUrl"  open-type="getUserInfo" @getuserinfo="getUserInfo">
-        登录
-      </button>
-    </div>
-    <div class="welcome">
-      <h1 class="head">欢迎使用！</h1>
-      <p class="info">在活动现场、会议室、公司前台、客厅、门店等放置您的专属WiFi码，访客扫一扫即可免密连WiFi。</p>
-    </div>
-    <div class="btn">
-      <button class="weui-btn" type="primary" @click="createWifiHandle">我要创建WiFi码</button>
-    </div>
-    <blank></blank>
-    <div class="wifi-list">
-      <div v-for="(item, index) in getWifiListSorted" :key="index" @click="clickWifiHandle(item.id)">
-        <wifi :wifi="item"></wifi>
-        <blank></blank>
+  <section class="container">
+    <section class="banner-wrap">
+      <!-- lazy-load -->
+      <img class="home-banner" src="/static/image/home-banner.png" alt="" mode='aspectFit'>
+      <div class="title">
+        <h1>首页</h1>
+        <span>欢迎使用畅享无线~</span>
       </div>
-    </div>
-    <div class="connect-head" v-if="getConnectListSorted.length">
-      <div class="icon"></div>
-      <div class="title">最近使用</div>
-    </div>
-    <div class="connect-list">
-      <div  v-for="(item, index) in getConnectListSorted" :key="index"
-        @click="clickConnectHandle(item.wifi_id)">
-        <connect :connect="item"></connect>
+      <div class="userinfo">
+        <img class="avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" mode='aspectFit'/>
+        <button class="btn-login" v-if="!userInfo.avatarUrl"  open-type="getUserInfo" @getuserinfo="getUserInfo">
+          登录
+        </button>
       </div>
-    </div>
-    <blank height="40px"></blank>
-    <div class="weui-footer">
-      <div class="weui-footer__text"><span class="text">Powered by 畅享无限</span></div>
-    </div>
+    </section>
+    <section class="create-btn-wrap">
+      <button class="weui-btn" type="primary" @click="createWifiHandle">创建WiFi码</button>
+    </section>
+    <section class="wifi-list-wrap" v-if="getWifiListSorted.length">
+      <div class="title">
+        <div class="tag"></div>
+        <h2>我的分享码</h2>
+      </div>
+      <div class="wifi-list">
+        <div class="wifi-item" v-for="(item, index) in getWifiListSorted" :key="index" @click="clickWifiHandle(item.id)">
+          <wifi :wifi="item"></wifi>
+        </div>
+      </div>
+    </section>
+    <section class="connect-list-wrap" v-if="getConnectListSorted.length">
+      <div class="title">
+        <div class="tag"></div>
+        <h2>最近连接</h2>
+      </div>
+      <div class="connect-list">
+        <div  v-for="(item, index) in getConnectListSorted" :key="index"
+          @click="clickConnectHandle(item.wifi_id)">
+          <connect :connect="item"></connect>
+        </div>
+      </div>
+    </section>
+    <FooterComp/>
     <auth-modal/>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -43,6 +50,7 @@ import wifi from '@/components/wifi'
 import connect from '@/components/connect'
 import blank from '@/components/blank'
 import authModal from '@/components/authModal'
+import FooterComp from '@/components/FooterComp'
 import { sortTime } from '@/utils'
 
 import {
@@ -55,12 +63,13 @@ export default {
     wifi,
     connect,
     blank,
-    authModal
+    authModal,
+    FooterComp
   },
   computed: {
     ...mapState('index', ['userInfo', 'wifiList', 'connectList']),
     getWifiListSorted () {
-      return this.wifiList.sort((a, b) => sortTime(a.create, b.create, 'desc'))
+      return [...this.wifiList, ...this.wifiList, ...this.wifiList].sort((a, b) => sortTime(a.create, b.create, 'desc'))
     },
     getConnectListSorted () {
       return this.connectList.sort((a, b) => sortTime(a.time, b.time, 'desc'))
@@ -98,87 +107,107 @@ export default {
   }
 }
 </script>
-
 <style lang='scss' scoped>
 .container {
-  min-height: 100vh;
-  .userinfo{
-    background-color: white;
-    width:100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .userinfo-avatar {
-      width: 128rpx;
-      height: 128rpx;
-      margin: 40rpx;
-      border-radius: 50%;
+  background-color: #ffffff;
+  .banner-wrap {
+    position: relative;
+    .home-banner{
+      width: 100%;
+      height: 392rpx;
     }
-    .userinfo-button {
-      width: auto;
-      height: 128rpx;
-      line-height: 128rpx;
-      margin: 40rpx;
-      border-radius:50%;
-      background-color:#eee;
-      &::after{
-        border: 0;
+    .title{
+      position: absolute;
+      top: 36rpx;
+      left: 36rpx;
+      h1{
+        color:#181818;
+        font-size: 48rpx;
+        line-height: 67rpx;
+        padding-bottom: 10rpx;
+      }
+      span{
+        color: #777777;
+        font-size: 28rpx;
+        line-height: 40rpx;
+      }
+    }
+    .userinfo{
+      position: absolute;
+      top:36rpx;
+      right: 36rpx;
+      .avatar{
+        width: 108rpx;
+        height: 108rpx;
+        border-radius: 50%;
+      }
+      .btn-login{
+        width: auto;
+        height: 108rpx;
+        line-height: 108rpx;
+        border-radius:50%;
+        background-color:#eee;
+        &::after{
+          border: 0;
+        }
       }
     }
   }
-  .welcome {
-    background-color: white;
-    text-align: center;
-    .head {
-      background-color: white;
-      padding: 20px 0;
-      font-size: 14px;
-    }
-    .info{
-      padding: 0 40px;
-      font-size: 14px;
-      color: rgba(196, 164, 164, 0.603);
-    }
-  }
-  .btn {
-    background-color: white;
-    width:100%;
+  .create-btn-wrap{
+    padding: 40rpx 36rpx 0;
+    box-sizing:border-box;
     .weui-btn{
-      margin-top: 40px;
-      margin-bottom: 20px;
-      width:60%;
-    }
-  }
+      width: 100%;
+      height: 88rpx;
+      border-radius: 48rpx;
+      background:linear-gradient(93deg,rgba(5,221,124,1) 0%,rgba(2,201,158,1) 50%,rgba(0,183,197,1) 100%);
+      box-shadow:0 20rpx 40rpx rgba(2,200,160,0.2);
 
-  .wifi-list{
-    width: 100%;
-  }
-  .connect-head{
-    background-color: white;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    .icon{
-      width: 4px;
-      height: 18px;
-      margin-left: 20px;
-      background-color: green;
+      font-size:36rpx;
+      font-weight:bold;
+      line-height:88rpx;
+      color: #ffffff;
     }
+  }
+  .wifi-list-wrap,
+  .connect-list-wrap{
     .title{
-      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      .tag {
+        width: 10rpx;
+        height: 50rpx;
+        margin-left: 44rpx;
+        border-radius:19rpx;
+        background-color: #02C9A0;
+        box-shadow:-5rpx 5rpx 12rpx rgba(2,201,160,0.3);
+      }
+      h2{
+        padding-left: 36rpx;
+        font-size: 36rpx;
+        line-height: 50rpx;
+        color: #181818;
+      }
     }
   }
-  .connect-list{
-    width: 100%;
-    flex: 1;
-  }
-  .weui-footer{
-    margin: 10px 0;
-    .text{
-      font-size: 14px;
+  .wifi-list-wrap {
+    padding-top: 80rpx;
+    .wifi-list{
+      padding: 60rpx 0;
+      display: flex;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      .wifi-item{
+        position: relative;
+        padding-right: 40rpx;
+      }
+      .wifi-item:first-child {
+        padding-left: 36rpx;
+      }
     }
+  }
+  .connect-list-wrap{
+    padding-bottom: 161rpx;
   }
 }
 </style>

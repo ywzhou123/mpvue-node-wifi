@@ -1,21 +1,11 @@
 <template>
-  <div class="container">
-    <div class="weui-flex">
-      <div class="weui-flex__item item-img">
-        <img src="/static/image/wifi-example.png" mode="aspectFit" class="img">
-      </div>
-      <div class="weui-flex__item item-wifi">
-          <div class="ssid">
-            <div class="ssid-value">{{wifi.ssid}}</div>
-            <div class="title">{{wifi.title}}</div>
-          </div>
-          <div class="count">已连接{{count}}次</div>
-      </div>
-      <div class="weui-flex__item item-right">
-        <img src="/static/image/right.png" class="right">
-      </div>
+  <section class="wifi">
+    <img src="/static/image/code.jpg" mode="aspectFit">
+    <div class="content">
+      <h1>{{wifi.ssid}}</h1>
+      <span>已连接{{count}}次</span>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -64,58 +54,32 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.container{
-  padding: 20rpx;
-  height: 240rpx;
-  background-color: white;
-  &:hover{
-    border: 1rpx solid #179B16;
+.wifi{
+  width: 280rpx;
+  background-color: #ffffff;
+  border-radius: 9rpx 9rpx 0 0;
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.08);
+  img{
+    width: 230rpx;
+    height: 230rpx;
+    padding:22rpx 25rpx 28rpx;
   }
-  .weui-flex {
-    width: 100%;
-    height: 100%;
-    .wifi {
-      padding: 20rpx;
+  .content{
+    height: 100rpx;
+    background-color: #02C9A0;
+    border-radius: 0 0 9rpx 9rpx;
+    text-align: center;
+    color: #ffffff;
+    h1{
+      font-size: 32rpx;
+      line-height: 45rpx;
+      padding-top: 10rpx;
     }
-    .item-img{
-      flex: 0;
-      .img{
-        height: 200rpx;
-        width: 150rpx;
-        margin-right: 20rpx;
-      }
-    }
-    .item-wifi{
-      display: flex;
-      flex-direction: column;
-      .ssid{
-        height: 100%;
-        text-align: center;
-        flex: 1;
-        display: flex;
-        .ssid-value, .title{
-          font-size: 48rpx;
-          align-self: center;
-        }
-        .title{
-          font-size: 32rpx;
-          color: #aaaaaa;
-          padding-left: 30rpx;
-        }
-      }
-      .count{
-        font-size: 24rpx;
-        color: rgba(92, 89, 89, 0.603);
-      }
-    }
-    .item-right{
-      flex: 0;
-      align-self: center;
-      .right{
-        color:  rgba(92, 89, 89, 0.603);
-        width: 50rpx;
-        height: 50rpx;
-      }
+    span{
+      font-size: 20rpx;
+      line-height: 28rpx;
+      padding-top: 7rpx;
+      display: block;
     }
   }
 }

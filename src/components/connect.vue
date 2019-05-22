@@ -1,17 +1,14 @@
 <template>
-  <div class="container">
-    <div class="connect">
-      <div class="ssid">
-        {{connect.ssid}}
+  <section class="connect-wrap">
+    <section class="connect">
+      <img class="logo" src="/static/image/wifi-icon.png" alt="" mode="aspectFit">
+      <div class="content">
+        <h1>{{connect.ssid}}</h1>
+        <span>{{time}}使用过</span>
       </div>
-      <div class="title">
-        {{connect.title}}
-      </div>
-      <div class="time">
-        {{time}}使用过
-      </div>
-    </div>
-  </div>
+      <img class="back" src="/static/image/back.png" alt="">
+    </section>
+  </section>
 </template>
 
 <script>
@@ -40,30 +37,41 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.container{
-  padding: 5px 10px;
-  background-color: white;
+.connect-wrap{
+  padding: 40rpx 36rpx 0;
+  box-sizing: border-box;
   .connect{
+    height: 160rpx;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    .ssid{
-      font-size: 40rpx;
+    box-shadow: 0px 0px 30px #EAEEF6;
+    border-radius: 12rpx;
+    .logo{
+      width: 120rpx;
+      height: 120rpx;
+      padding: 0 36rpx;
     }
-    .title{
-      font-size: 32rpx;
-      color: #aaaaaa;
-      padding-left: 30rpx;
+    .content {
       flex: 1;
+      color: #181818;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h1{
+        font-size: 28rpx;
+        line-height: 40rpx;
+      }
+      span{
+        display: block;
+        font-size: 24rpx;
+        line-height: 39rpx;
+      }
     }
-    .time{
-      font-size: 12px;
-      color: rgba(92, 89, 89, 0.603);
-      text-align: right;
-    }
-    &:hover{
-      background-color: #eeeeee;
+    .back{
+      width: 19rpx;
+      height: 30rpx;
+      padding-right: 36rpx;
     }
   }
 }

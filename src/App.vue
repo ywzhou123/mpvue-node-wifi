@@ -20,6 +20,7 @@ page {
   background-color: #eeeeee;
 }
 .container {
+  min-height: 100vh;
   height: 100%;
   width: 100%;
   display: flex;
@@ -36,5 +37,11 @@ page {
   -moz-transition: width 2s;
   -webkit-transition: width 2s;
   -o-transition: width 2s;
+}
+section{
+  width: 100%;
+}
+img{
+  display: block;
 }
 </style>
