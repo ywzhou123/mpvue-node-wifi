@@ -1,37 +1,51 @@
 <template>
-  <div class="container" :style="{backgroundImage:backgroundImage}">
-    <div class="header">
-      <span>欢迎使用畅享无限WiFi</span>
-    </div>
-    <div class="body">
-      <img src="/static/image/logo.png" alt class="logo">
-      <span class="find">发现WiFi</span>
-      <span class="ssid">{{wifi.ssid}}</span>
-      <span class="title">{{wifi.title}}</span>
-      <span class="remark">{{wifi.remark}}</span>
-      <button
-        class="weui-btn"
-        type="primary"
-        :disabled="wifi.id===''"
-        @click="clickHandle"
-      >连接WiFi</button>
-    </div>
-    <a href="/pages/index/main" class="footer">如何创建WiFi码</a>
-  </div>
+  <section class="container">
+    <header>
+      <div class="title">
+        <h1>欢迎使用畅享无限WIFI</h1>
+        <span>点击连接即可使用WIFI</span>
+      </div>
+    </header>
+    <section class="content-wrap">
+      <div class="content">
+        <div class="title">
+          <h2>{{wifi.title}}</h2>
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+        </div>
+        <img src="/static/image/logo.png" alt="" class="logo">
+        <h2 class="ssid">{{wifi.ssid}}</h2>
+        <span class="remark">{{wifi.remark}}</span>
+        <div class="btn-wrap">
+          <button
+            class="weui-btn btn-main"
+            type="primary"
+            :disabled="!wifi.id"
+            @click="clickHandle"
+          >连接WIFI</button>
+        </div>
+      </div>
+    </section>
+    <FooterComp/>
+  </section>
 </template>
 
 <script>
+import FooterComp from '@/components/FooterComp'
 import * as Vuex from 'vuex'
 const { mapState, mapActions } = Vuex.createNamespacedHelpers(
   'connect'
 )
 export default {
+  components: {
+    FooterComp
+  },
   computed: {
-    ...mapState(['wifi']),
-    backgroundImage () {
-      let base64 = wx.getFileSystemManager().readFileSync('/static/image/background.png', 'base64')
-      return `url(data:image/jpg;base64,${base64})`
-    }
+    ...mapState(['wifi'])
+    // backgroundImage () {
+    //   let base64 = wx.getFileSystemManager().readFileSync('/static/image/background.png', 'base64')
+    //   return `url(data:image/jpg;base64,${base64})`
+    // }
   },
   methods: {
     ...mapActions(['getWifiDetail']),
@@ -65,55 +79,66 @@ export default {
 
 <style lang='scss' scoped>
 .container {
-  justify-content: start;
-  background-color: green;
-  height: 100vh;
-  .header {
-    font-size: 24px;
-    color: #fff;
-    margin: 60px;
-  }
-  .body {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    padding-bottom: 60px;
-    .logo {
-      width: 40px;
-      height: 40px;
-      margin: 15px;
+  .content-wrap{
+    flex: 1;
+    padding: 80rpx 60rpx 0;
+    .content{
+      height: 866rpx;
+      text-align: center;
+      box-shadow:0px 30rpx 80rpx rgba(234,238,246,1);
+      border-radius:34rpx;
+      .title{
+        position: relative;
+        overflow: hidden;
+        height: 277rpx;
+        background:linear-gradient(135deg,rgba(5,221,125,1) 0%,rgba(0,184,196,1) 100%);
+        border-radius:34rpx 34rpx 0px 0px;
+        h2{
+          font-size: 32rpx;
+          line-height: 45rpx;
+          color: #ffffff;
+          padding-top: 61rpx;
+        }
+        .circle1,.circle2{
+          position: absolute;
+          width:87rpx;
+          height:87rpx;
+          background:linear-gradient(313deg,rgba(0,185,193,1) 0%,rgba(4,218,130,1) 100%);
+          border-radius:50%;
+        }
+        .circle1{
+          left: -20rpx;
+          top: -15rpx;
+          width: 175rpx;
+          height: 175rpx;
+        }
+        .circle2{
+          right: 19rpx;
+          bottom: 25rpx;
+        }
+      }
+      img.logo{
+        width: 222rpx;
+        height: 222rpx;
+        position: relative;
+        border-radius: 50%;
+        margin: -100rpx auto 0;
+      }
+      .ssid{
+        font-size: 36rpx;
+        line-height: 50rpx;
+        padding-top: 40rpx;
+      }
+      .remark{
+        font-size: 28rpx;
+        line-height: 40rpx;
+        color: #777777;
+        padding-top: 36rpx;
+      }
+      .btn-wrap{
+        padding: 120rpx 97rpx 0;
+      }
     }
-    .find {
-      font-size: 12px;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-    .ssid {
-      line-height: 20px;
-    }
-    .title {
-      font-size: 14px;
-      color: #aaa;
-    }
-    .remark {
-      font-size: 14px;
-      color: #aaa;
-    }
-    .weui-btn {
-      width: 60%;
-    }
-  }
-  .footer {
-    position: fixed;
-    bottom: 0;
-    border-bottom: 2px solid #fff;
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 20px;
   }
 }
 </style>

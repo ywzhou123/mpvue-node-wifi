@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <section class="banner-wrap">
+    <header>
       <!-- lazy-load -->
       <img class="home-banner" src="/static/image/home-banner.png" alt="" mode='aspectFit'>
       <div class="title">
@@ -13,7 +13,7 @@
           登录
         </button>
       </div>
-    </section>
+    </header>
     <section class="create-btn-wrap">
       <button class="weui-btn btn-main" type="primary" @click="createWifiHandle">创建WiFi码</button>
     </section>
@@ -110,7 +110,7 @@ export default {
 <style lang='scss' scoped>
 .container {
   background-color: #ffffff;
-  .banner-wrap {
+  header {
     position: relative;
     .home-banner{
       width: 100%;
@@ -118,19 +118,8 @@ export default {
     }
     .title{
       position: absolute;
-      top: 36rpx;
+      top: 0;
       left: 36rpx;
-      h1{
-        // color:#181818;
-        font-size: 48rpx;
-        line-height: 67rpx;
-        padding-bottom: 10rpx;
-      }
-      span{
-        color: #777777;
-        font-size: 28rpx;
-        line-height: 40rpx;
-      }
     }
     .userinfo{
       position: absolute;

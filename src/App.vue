@@ -50,6 +50,23 @@ img{
 button::after{
   border: 0;
 }
+header{
+  padding: 0 36rpx;
+  .title{
+    h1{
+      padding-top: 36rpx;
+      font-size: 48rpx;
+      line-height: 67rpx;
+    }
+    span{
+      display: block;
+      padding-top: 10rpx;
+      color: #777777;
+      font-size: 28rpx;
+      line-height: 40rpx;
+    }
+  }
+}
 .list-title{
   display: flex;
   align-items: center;

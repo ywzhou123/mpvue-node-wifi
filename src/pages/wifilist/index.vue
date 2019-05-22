@@ -1,8 +1,10 @@
 <template>
   <section class="container">
     <header>
-      <h1>请选择可用的WIFI</h1>
-      <span>可创建当前连接WIFI或下方WIFI列表的WIFI码</span>
+      <div class="title">
+        <h1>请选择可用的WIFI</h1>
+        <span>可创建当前连接WIFI或下方WIFI列表的WIFI码</span>
+      </div>
       <img class="logo" src="/static/image/logo.png" alt='' mode='aspectFit'>
       <div class="ssid">{{ssid||'未连接Wifi'}}</div>
       <button class="weui-btn btn-main"
@@ -210,17 +212,6 @@ export default {
 <style lang='scss' scoped>
 .container{
   header{
-    padding: 0 36rpx;
-    h1{
-      padding-top: 36rpx;
-      font-size: 48rpx;
-      line-height: 67rpx;
-    }
-    span{
-      padding-top: 10rpx;
-      font-size: 28rpx;
-      line-height: 40rpx;
-    }
     .logo{
       margin: 0 auto;
       width: 294rpx;

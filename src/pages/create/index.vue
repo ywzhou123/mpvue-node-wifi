@@ -1,8 +1,10 @@
 <template>
   <section class="container">
     <header>
-      <h1>填写WIFI码信息</h1>
-      <span>填写时请确认WIFI密码是否填写正确</span>
+      <div class="title">
+        <h1>填写WIFI码信息</h1>
+        <span>填写时请确认WIFI密码是否填写正确</span>
+      </div>
       <div class="example" @click="onNavigate">
         <h2>查看示例</h2>
         <img src="/static/image/go.png" alt='' mode='aspectFit'>
@@ -123,17 +125,6 @@ export default {
 .container {
   justify-content: flex-start;
   header{
-    padding: 0 36rpx;
-    h1{
-      font-size: 48rpx;
-      line-height: 67rpx;
-      padding-top: 36rpx;
-    }
-    span{
-      font-size: 28rpx;
-      line-height: 40rpx;
-      padding-top: 10rpx;
-    }
     .example{
       padding-top: 60rpx;
       display: flex;

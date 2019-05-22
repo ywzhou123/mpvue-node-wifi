@@ -1,7 +1,9 @@
 <template>
   <section class="container">
     <header>
-      <h1>WIFI码示例</h1>
+      <div class="title">
+        <h1>WIFI码示例</h1>
+      </div>
     </header>
     <section class="example-wrap">
       <div class="example">
@@ -24,14 +26,6 @@ export default {
 <style lang='scss' scoped>
 .container {
   justify-content: flex-start;
-  header{
-    padding: 0 36rpx;
-    h1{
-      font-size: 48rpx;
-      line-height: 67rpx;
-      padding-top: 36rpx;
-    }
-  }
   .example-wrap{
     padding: 129rpx 105rpx 0;
     .example{

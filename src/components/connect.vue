@@ -53,7 +53,6 @@ export default {
     }
     .content {
       flex: 1;
-      // color: #181818;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -65,6 +64,7 @@ export default {
         display: block;
         font-size: 24rpx;
         line-height: 39rpx;
+        color: #777777;
       }
     }
     .back{
