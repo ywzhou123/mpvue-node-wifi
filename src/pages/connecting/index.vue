@@ -70,10 +70,17 @@ export default {
             wx.connectWifi({
               SSID: that.wifi.ssid,
               password: that.wifi.pass,
-              success (res) {
+              async success (res) {
                 that.connectText = '连接成功'
                 that.step4 = true
-                that.createConnect()
+                const r = await qcloud.request({
+                  url: config.connectWifi,
+                  method: 'PUT',
+                  data: {
+                    wifiId: that.wifi.id
+                  }
+                })
+                console.log(r)
                 wx.redirectTo({
                   url: '/pages/connectsuccess/main'
                 })
@@ -99,15 +106,6 @@ export default {
           title: 'WiFi不存在'
         })
       }
-    },
-    async createConnect () {
-      const that = this
-      await qcloud.request({
-        url: config.connectWifi,
-        data: {
-          wifiId: that.wifi.id
-        }
-      })
     }
   },
   mounted () {

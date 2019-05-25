@@ -2,10 +2,10 @@ const { mysql } = require('../qcloud')
 
 module.exports = async (ctx, next) => {
     if (ctx.state.$wxInfo.loginState === 1) {
-        const { wifiId } = ctx.query
+        const { wifiId } = ctx.request.body
         const userinfo = ctx.state.$wxInfo.userinfo
         var res = await mysql('connectList')
-          .where({'wifi_id': wifiId, 'open_id': userinfo.openId})
+          .where({wifi_id: wifiId, open_id: userinfo.openId})
         if (res.length) {
             res = await mysql('connectList')
               .where({'wifi_id': wifiId, 'open_id': userinfo.openId})
