@@ -14,8 +14,10 @@
         </button>
       </div>
     </header>
-    <section class="create-btn-wrap">
-      <button class="weui-btn btn-main" type="primary" @click="createWifiHandle">创建WiFi码</button>
+    <section class="create-btn-wrap" :style="{flex: getWifiListSorted.length ||  getConnectListSorted.length ? 0 : 1}">
+      <button class="weui-btn btn-main" type="primary"
+      :disabled="userInfo.openId === ''"
+      @click="createWifiHandle">创建WiFi码</button>
     </section>
     <section class="wifi-list-wrap" v-if="getWifiListSorted.length">
       <div class="list-title">
@@ -84,6 +86,8 @@ export default {
     ...mapActions('index', ['login', 'getWifiList', 'getConnectList']),
     getUserInfo () {
       this.login()
+      this.getWifiList()
+      this.getConnectList()
     },
     createWifiHandle () {
       wx.navigateTo({

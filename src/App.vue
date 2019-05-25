@@ -98,7 +98,7 @@ header{
   border-radius:48rpx;
   &.disabled{
     box-shadow: none;
-    background: #f5f5f5;
+    background: rgba(152, 151, 151, 0.7);
   }
 }
 </style>

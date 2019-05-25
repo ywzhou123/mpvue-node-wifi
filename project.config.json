@@ -46,7 +46,7 @@
 					"id": 1,
 					"name": "connect",
 					"pathName": "pages/connect/main",
-					"query": "wifi_id= 19",
+					"query": "wifi_id= 39",
 					"scene": null
 				},
 				{

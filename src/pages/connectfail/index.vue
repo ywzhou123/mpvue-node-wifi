@@ -6,7 +6,7 @@
     <span class="remark">{{wifi.remark}}</span>
     <section class="btn-wrap">
       <button
-        class="weui-btn btn-main"
+        class="weui-btn btn-main disabled"
         type="primary"
         @click="clickHandle"
       >重新连接</button>
@@ -88,7 +88,7 @@ export default {
   background-color:#fff;
   height: 100vh;
   .fail{
-    background-color:rgb(152, 151, 151);
+    background-color:rgba(152, 151, 151, 0.7);
     border-radius:50%;
     height:100px;
     width:100px;

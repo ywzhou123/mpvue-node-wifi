@@ -39,7 +39,6 @@ export default {
     ...mapActions('index', ['login']),
     ...mapMutations('index', ['hideTip']),
     getUserInfo () {
-      // e.mp.detail.userInfo
       this.login()
       this.hideTip()
     }

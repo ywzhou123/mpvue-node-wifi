@@ -16,14 +16,14 @@
         <img src="/static/image/logo.png" alt="" class="logo">
         <h2 class="ssid">{{wifi.ssid}}</h2>
         <span class="remark">{{wifi.remark}}</span>
-        <div class="btn-wrap">
+        <section class="btn-wrap">
           <button
             class="weui-btn btn-main"
             type="primary"
             :disabled="!wifi.id"
             @click="clickHandle"
           >连接WIFI</button>
-        </div>
+        </section>
       </div>
     </section>
     <FooterComp/>
@@ -90,6 +90,7 @@ export default {
       text-align: center;
       box-shadow:0px 30rpx 80rpx rgba(234,238,246,1);
       border-radius:34rpx;
+      position: relative;
       .title{
         position: relative;
         overflow: hidden;
@@ -139,7 +140,9 @@ export default {
         padding-top: 36rpx;
       }
       .btn-wrap{
-        padding: 120rpx 97rpx 0;
+        position: absolute;
+        bottom: 94rpx;
+        padding: 0 97rpx;
       }
     }
   }

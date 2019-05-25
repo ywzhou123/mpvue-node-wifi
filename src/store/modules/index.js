@@ -74,6 +74,8 @@ export default {
           } else {
             commit('showTip')
             commit('updateUserInfo', userInfo)
+            commit('updateWifiList', [])
+            commit('updateConnectList', [])
           }
         }
       })

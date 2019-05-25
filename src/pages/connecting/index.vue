@@ -1,30 +1,37 @@
 <template>
   <div class="container">
-    <img src="/static/image/connecting.gif" alt class="img">
-    <span class="ssid">{{wifi.ssid}}</span>
-    <span class="desc">{{connectText}}</span>
-    <div class="step_cont">
+    <section class="connecting">
+      <div class="wifi-wrap">
+        <img class="wifi-icon" src="/static/image/wifi.svg" alt="">
+        <div class="bo"></div>
+        <div class="bo bo-2"></div>
+        <img class="loading" src="/static/image/loading.svg" alt="">
+      </div>
+      <div class="text ssid">{{wifi.ssid}}</div>
+      <div class="text desc">{{connectText}}</div>
+    </section>
+    <section class="step_cont">
       <div class="step_item step1">
         <span class="txt">建立连接</span>
         <icon class="success" type="success" size="20" v-if="step1"></icon>
-        <img src="/static/image/loading.png" alt class="status" v-else>
+        <img src="/static/image/loading.png" alt class="status" v-if="!step1">
       </div>
       <div class="step_item step2">
         <span class="txt">分配IP地址</span>
         <icon class="success" type="success" size="20" v-if="step2"></icon>
-        <img src="/static/image/loading.png" alt class="status" v-else>
+        <img src="/static/image/loading.png" alt class="status" v-if="!step2">
       </div>
       <div class="step_item step3">
         <span class="txt">安全检查</span>
         <icon class="success" type="success" size="20" v-if="step3"></icon>
-        <img src="/static/image/loading.png" alt class="status" v-else>
+        <img src="/static/image/loading.png" alt class="status" v-if="!step3">
       </div>
       <div class="step_item step4">
         <span class="txt">联网检查</span>
         <icon class="success" type="success" size="20" v-if="step4"></icon>
         <img src="/static/image/loading.png" alt class="status" v-if="!step4">
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -49,6 +56,7 @@ export default {
     ...mapState(['wifi'])
   },
   methods: {
+    ...Vuex.mapActions('index', ['getConnectList']),
     readyConnect () {
       var that = this
       that.runConnect()
@@ -81,6 +89,7 @@ export default {
                   }
                 })
                 console.log(r)
+                that.getConnectList()
                 wx.redirectTo({
                   url: '/pages/connectsuccess/main'
                 })
@@ -112,61 +121,118 @@ export default {
     this.$nextTick(() => {
       this.readyConnect()
     })
+  },
+  onUnload () {
+    this.step1 = false
+    this.step2 = false
+    this.step3 = false
+    this.step4 = false
   }
 }
 </script>
 
 <style lang='scss' scoped>
 .container {
-  background-color: #fff;
   height: 100vh;
-  .img {
-    height: 180px;
-    width: 200px;
-    margin-top: 40px;
-    margin-bottom: 10px;
-  }
-  .desc {
-    margin: 10px;
-    font-size: 14px;
-  }
-  .success,
-  .status {
-    width: 20px;
-    height: 20px;
-  }
-  .status {
-    animation: rotate 1s linear infinite;
-    -webkit-animation: rotate 1s linear infinite;
+  background-color: #f5f5f5;
+  justify-content:flex-start;
+
+  .connecting{
+    height: 70vh;
+    background:linear-gradient(135deg,rgb(226, 248, 164) 0%,rgb(65, 228, 165) 50%,rgb(3, 165, 76) 100%);
+    text-align: center;
+    .wifi-wrap{
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      margin: 100rpx auto 50rpx;
+      width: 300rpx;
+      height: 300rpx;
+      position: relative;
+      .wifi-icon{
+        margin: 0 auto;
+        width: 60rpx;
+        height: 60rpx;
+        padding-top: 120rpx;
+      }
+      .loading{
+        position: absolute;
+        top: -50rpx;
+        left: -50rpx;
+        width: 400rpx;
+        height: 400rpx;
+        opacity: 0.5;
+        animation: rotate linear 2s infinite both;
+      }
+      .bo{
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        width: 300rpx;
+        height: 300rpx;
+        background-color: #ffffff;
+        animation: bolan linear 2s infinite both;
+        transform-origin: center center;
+        @keyframes bolan {
+          from {
+            opacity: 0.4;
+            transform: scale(0);
+          }
+          to {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+        }
+      }
+      .bo-2{
+        animation-delay: 1s;
+      }
+    }
+    .text {
+      color: #ffffff;
+      font-size: 32rpx;
+      padding-top: 40rpx;
+    }
   }
   .step_cont {
-    flex: 1;
-    margin-top: 80px;
-    width: 100%;
+    margin-top: -120rpx;
+    width: 80%;
+    border-radius: 24rpx;
+    background-color: #ffffff;
     .step_item {
       display: flex;
-      font-size: 14px;
-      line-height: 20px;
-      border-bottom: 1px rgba(153, 153, 153, 0.509);
-      margin: 0 10px;
-      padding: 10px;
       justify-content: space-between;
+      font-size: 32rpx;
+      line-height: 60rpx;
+      padding: 20rpx 36rpx;
+      &:nth-of-type(n+2) {
+        border-top: 1rpx solid rgba(153, 153, 153, 0.2);
+      }
+      .success,
+      .status {
+        width: 40rpx;
+        height: 40rpx;
+      }
+      .status {
+        animation: rotate 1s linear infinite;
+        -webkit-animation: rotate 1s linear infinite;
+      }
     }
-    @keyframes rotate {
-      from {
-        transform: rotate(0);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+  }
+  @keyframes rotate {
+    from {
+      transform: rotate(0);
     }
-    @-webkit-keyframes rotate {
-      from {
-        transform: rotate(0);
-      }
-      to {
-        transform: rotate(360deg);
-      }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes rotate {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 }
