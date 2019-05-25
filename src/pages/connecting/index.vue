@@ -65,20 +65,31 @@ export default {
     runConnect () {
       const that = this
       if (that.wifi.ssid) {
-        wx.connectWifi({
-          SSID: that.wifi.ssid,
-          password: that.wifi.pass,
-          success (res) {
-            that.connectText = '连接成功'
-            that.step4 = true
-            that.createConnect()
-            wx.redirectTo({
-              url: '/pages/connectsuccess/main'
+        wx.startWifi({
+          success () {
+            wx.connectWifi({
+              SSID: that.wifi.ssid,
+              password: that.wifi.pass,
+              success (res) {
+                that.connectText = '连接成功'
+                that.step4 = true
+                that.createConnect()
+                wx.redirectTo({
+                  url: '/pages/connectsuccess/main'
+                })
+              },
+              fail (err) {
+                console.log('连接失败', err)
+                wx.redirectTo({
+                  url: `/pages/connectfail/main?errCode=${err.errCode}`
+                })
+              }
             })
           },
           fail () {
-            wx.redirectTo({
-              url: '/pages/connectfail/main'
+            wx.showToast({
+              icon: 'none',
+              title: 'WiFi模块初始化失败'
             })
           }
         })

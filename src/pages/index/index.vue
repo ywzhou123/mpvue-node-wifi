@@ -9,7 +9,7 @@
       </div>
       <div class="userinfo">
         <img class="avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" mode='aspectFit'/>
-        <button class="btn-login" v-if="!userInfo.avatarUrl"  open-type="getUserInfo" @getuserinfo="getUserInfo">
+        <button class="avatar btn-login" v-if="!userInfo.avatarUrl"  open-type="getUserInfo" @getuserinfo="getUserInfo">
           登录
         </button>
       </div>
@@ -69,7 +69,7 @@ export default {
   computed: {
     ...mapState('index', ['userInfo', 'wifiList', 'connectList']),
     getWifiListSorted () {
-      return [...this.wifiList, ...this.wifiList, ...this.wifiList].sort((a, b) => sortTime(a.create, b.create, 'desc'))
+      return this.wifiList.sort((a, b) => sortTime(a.create, b.create, 'desc'))
     },
     getConnectListSorted () {
       return this.connectList.sort((a, b) => sortTime(a.time, b.time, 'desc'))
@@ -131,11 +131,9 @@ export default {
         border-radius: 50%;
       }
       .btn-login{
-        width: auto;
-        height: 108rpx;
         line-height: 108rpx;
-        border-radius:50%;
         background-color:#eee;
+        padding: 0;
       }
     }
   }

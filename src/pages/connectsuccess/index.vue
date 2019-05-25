@@ -1,11 +1,16 @@
 <template>
   <div class="container">
     <img src="/static/image/success.png" alt="" class="success">
-    <span class="success_txt">已连接成功</span>
+    <span class="success_txt">连接成功</span>
     <span class="ssid">{{wifi.ssid}}</span>
     <span class="remark">{{wifi.remark}}</span>
-    <a href="/pages/index/main" class="create">我也想创建WiFi码</a>
-    <div class="footer"></div>
+    <section class="btn-wrap">
+      <button
+        class="weui-btn btn-main"
+        type="primary"
+        @click="clickHandle"
+      >回到首页</button>
+    </section>
   </div>
 </template>
 
@@ -17,6 +22,13 @@ const { mapState } = Vuex.createNamespacedHelpers(
 export default {
   computed: {
     ...mapState(['wifi'])
+  },
+  methods: {
+    clickHandle () {
+      wx.reLaunch({
+        url: '/pages/index/main'
+      })
+    }
   }
 }
 </script>
@@ -26,7 +38,8 @@ export default {
   background-color:#fff;
   height: 100vh;
   .success{
-    background-color:rgb(7, 184, 66);
+    background:linear-gradient(93deg,rgba(5,221,124,1) 0%,rgba(2,201,158,1) 50%,rgba(0,183,197,1) 100%);
+    box-shadow:0px 20rpx 40rpx rgba(2,200,160,0.2);
     border-radius:50%;
     height:100px;
     width:100px;
@@ -48,12 +61,9 @@ export default {
     margin-bottom:30px;
     font-size:16px;
   }
-  .create{
-    font-size:14px;
-    color:green;
-  }
-  .footer{
+  .btn-wrap{
     flex: 1;
+    padding: 50rpx 97rpx 0;
   }
 }
 </style>

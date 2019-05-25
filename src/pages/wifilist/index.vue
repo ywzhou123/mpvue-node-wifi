@@ -7,9 +7,7 @@
       </div>
       <img class="logo" src="/static/image/logo.png" alt='' mode='aspectFit'>
       <div class="ssid">{{ssid||'未连接Wifi'}}</div>
-      <button class="weui-btn btn-main"
-        :class="ssid ? '':'disabled'"
-        type="primary" :disabled="!ssid" @click="clickHandleCreate"
+      <button class="weui-btn btn-main" type="primary"  @click="clickHandleCreate"
       >立即创建</button>
     </header>
     <section class="wifi-list-wrap">
@@ -169,7 +167,6 @@ export default {
       wx.getWifiList()
     },
     clickHandleCreate (e) {
-      if (!this.ssid) return
       wx.navigateTo({
         url: `/pages/create/main?ssid=${this.ssid}&bssid=${this.bssid}`
       })
@@ -198,13 +195,13 @@ export default {
       })
     }
   },
-  beforeMount () {
-    this.getSystemInfo() // 获取系统信息 初始化wifi
-    this.onGetWifiList() // 监听wifi列表的获取
-  },
   mounted () {
-    this.getCurrentWifi() // 获取当前已连接的wifi信息
-    this.getSetting()
+    this.$nextTick(() => {
+      this.getSystemInfo() // 获取系统信息 初始化wifi
+      this.onGetWifiList() // 监听wifi列表的获取
+      this.getCurrentWifi() // 获取当前已连接的wifi信息
+      this.getSetting() // 获取授权状态
+    })
   }
 }
 </script>

@@ -27,10 +27,12 @@
       </div>
     </section>
     <FooterComp/>
+    <auth-modal/>
   </section>
 </template>
 
 <script>
+import authModal from '@/components/authModal'
 import FooterComp from '@/components/FooterComp'
 import * as Vuex from 'vuex'
 const { mapState, mapActions } = Vuex.createNamespacedHelpers(
@@ -38,7 +40,8 @@ const { mapState, mapActions } = Vuex.createNamespacedHelpers(
 )
 export default {
   components: {
-    FooterComp
+    FooterComp,
+    authModal
   },
   computed: {
     ...mapState(['wifi'])

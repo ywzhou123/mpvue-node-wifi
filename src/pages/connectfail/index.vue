@@ -1,14 +1,18 @@
 <template>
-  <div class="container">
+  <section class="container">
     <img src="/static/image/warning.png" alt="" class="fail">
-    <span class="fail_txt">连接失败</span>
+    <span class="fail_txt">{{errMsg}}</span>
     <span class="ssid">{{wifi.ssid}}</span>
     <span class="remark">{{wifi.remark}}</span>
-    <span class="desc">您当前可能不在WiFi覆盖范围内，或WiFi密码有误</span>
-    <button type='primary' class="connect" @click="clickHandle">重新连接</button>
+    <section class="btn-wrap">
+      <button
+        class="weui-btn btn-main"
+        type="primary"
+        @click="clickHandle"
+      >重新连接</button>
+    </section>
     <a href="/pages/index/main" class="create">我也想创建WiFi码</a>
-    <div class="footer"></div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -20,11 +24,60 @@ export default {
   computed: {
     ...mapState(['wifi'])
   },
+  data () {
+    return {
+      errMsg: '连接失败'
+    }
+  },
   methods: {
     clickHandle () {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/connecting/main'
       })
+    }
+  },
+  mounted () {
+    const { errCode } = this.$root.$mp.query
+    console.log(errCode)
+    if (errCode) {
+      switch (errCode) {
+        case '12000':
+          this.errMsg = '未先调用startWifi接口'
+          break
+        case '12001':
+          this.errMsg = '当前系统不支持'
+          break
+        case '12002':
+          this.errMsg = '密码错误'
+          break
+        case '12003':
+          this.errMsg = '连接超时'
+          break
+        case '12004':
+          this.errMsg = '重复连接'
+          break
+        case '12005':
+          this.errMsg = '未打开WiFi开关'
+          break
+        case '12006':
+          this.errMsg = '未打开GPS定位开关'
+          break
+        case '12007':
+          this.errMsg = '用户拒绝授权'
+          break
+        case '12008':
+          this.errMsg = '无效的SSID'
+          break
+        case '12009':
+          this.errMsg = '系统运营商配置拒绝'
+          break
+        case '12011':
+          this.errMsg = '应用在后台无法配置WiFi'
+          break
+        case '12013':
+          this.errMsg = '系统保存的WiFi配置过期'
+          break
+      }
     }
   }
 }
@@ -57,20 +110,14 @@ export default {
     margin-bottom:30px;
     font-size:16px;
   }
-  .desc{
-    font-size:12px;
-    color:gray;
-  }
-  .connect{
-    width:175px;
-    margin:20px;
+  .btn-wrap{
+    flex: 1;
+    padding: 50rpx 97rpx 0;
   }
   .create{
     font-size:14px;
     color:green;
-  }
-  .footer{
-    flex: 1;
+    padding: 80rpx 0;
   }
 }
 </style>

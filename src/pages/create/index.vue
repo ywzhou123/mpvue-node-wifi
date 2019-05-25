@@ -14,11 +14,13 @@
       <form class="form">
         <div class="form-item">
           <img src="/static/image/logo.png" alt='' mode='aspectFit'>
-          <input type="text" class="ssid" :value="wifiData.ssid" disabled>
+          <input type="text" class="ssid" placeholder="请输入WiFi名称" v-model="wifiData.ssid">
         </div>
         <div class="form-item">
           <img src="/static/image/password.png" alt='' mode='aspectFit'>
-          <input type="password" class="pass" placeholder="请输入WiFi密码" v-model="wifiData.pass">
+          <input type="text" class="pass" placeholder="请输入WiFi密码" v-model="wifiData.pass" v-if="showPassword">
+          <input type="password" class="pass" placeholder="请输入WiFi密码" v-model="wifiData.pass" v-if="!showPassword">
+          <img class="eye" :src="'/static/image/eye-' + (showPassword ? 'open' : 'close') +'.svg'" alt="" @click="showPassword = !showPassword">
         </div>
         <div class="form-item">
           <img src="/static/image/welcome.png" alt='' mode='aspectFit'>
@@ -56,7 +58,8 @@ export default {
   data () {
     return {
       wifiData: initWifiData(),
-      codeErrMsg: ''
+      codeErrMsg: '',
+      showPassword: false
     }
   },
   computed: {
@@ -107,11 +110,11 @@ export default {
   },
   mounted () {
     var query = this.$root.$mp.query
-    var ssid = query.ssid
-    var bssid = query.bssid
+    var ssid = query.ssid || ''
+    var bssid = query.bssid || ''
     if (query.edit) {
       this.wifiData = Object.assign({}, initWifiData(), this.wifi)
-    } else if (ssid && bssid) {
+    } else {
       this.wifiData = Object.assign({}, initWifiData(), { ssid, bssid })
     }
   },
@@ -149,7 +152,7 @@ export default {
         display: flex;
         align-items: center;
         padding-top: 60rpx;
-        img{
+        img:first-child{
           width: 60rpx;
           height: 60rpx;
           padding-right: 36rpx;
@@ -160,7 +163,13 @@ export default {
           font-size: 28rpx;
           line-height: 40rpx;
           color: #777777;
-          border-bottom:1px solid #CECCE2;
+          border-bottom:1rpx solid #CECCE2;
+        }
+        .eye {
+          width: 60rpx;
+          height: 60rpx;
+          padding:18rpx 30rpx;
+          border-bottom:1rpx solid #CECCE2;
         }
       }
     }

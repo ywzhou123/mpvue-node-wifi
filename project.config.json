@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -43,9 +43,24 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "connect",
 					"pathName": "pages/connect/main",
+					"query": "wifi_id= 39",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "connect_fail",
+					"pathName": "pages/connectfail/main",
+					"query": "errCode=12013",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "connect_success",
+					"pathName": "pages/connectsuccess/main",
+					"query": "errCode=12013",
 					"scene": null
 				}
 			]
